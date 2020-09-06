@@ -92,3 +92,34 @@ API: '/post/:id' \
 requestType: DELETE \
 Note: pass the post `id` to delete the post. User can delete only his/her post.
 
+# MySQL DB Structure
+
+### Users table
+id\
+firstName\
+middleName\
+lastName\
+email\
+password\
+dob\
+dpURL\
+createdAt\
+updatedAt
+
+### Friends table
+id\
+userId\
+friendId\
+ufId\
+status\
+createdAt\
+updatedAt
+
+### Posts table
+id\
+post\
+privacy\
+status\
+userId\
+createdAt\
+updatedAt
