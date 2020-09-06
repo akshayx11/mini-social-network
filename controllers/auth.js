@@ -19,6 +19,13 @@ const decryptData = encryptText => {
     return decryptText;
 };
 
+const generateJwtToken = payload => {
+    return jwt.sign(payload, TOKEN_SECRET, { expiresIn: '18000s' });
+}
+const decryptJwtToken = payload => {
+    return jwt.verify(payload, TOKEN_SECRET);
+}
+
 const authorizeUser = async creds =>{
     let {email, password} = creds;
     password = encryptData(password);
@@ -29,20 +36,14 @@ const authorizeUser = async creds =>{
             message: "invalid email or password"
         };
     }
+    const token = generateJwtToken({email: data.email, userId: data.id});
+    data.token = token;
     delete data.password;
     return {
         statusCode: 200,
         data
     };
 }
-
-const generateJwtToken = payload => {
-    return jwt.sign(payload, TOKEN_SECRET, { expiresIn: '18000s' });
-}
-const decryptJwtToken = payload => {
-    return jwt.verify(payload, TOKEN_SECRET);
-}
-
 module.exports = {
     encryptData, 
     decryptData, 
